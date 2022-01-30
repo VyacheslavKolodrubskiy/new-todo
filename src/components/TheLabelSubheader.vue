@@ -8,49 +8,63 @@
     </div>
     <div class="mt-5 flex justify-between">
       <BaseButtonAdd
-        :class="{ 'animate-bounce': !isFormOpen }"
+        :class="{ 'animate-bounce': !lablesLength && !isFormOpen }"
         @click="openModal"
       />
       <BaseButtonRemove @click="removeAllLabels" />
     </div>
   </div>
-  <TodoListLabel />
+  <TheLabelList />
   <LabelForm @submit="addNewLabel" v-model="isFormOpen" />
-  <BaseToast v-if="isOpenToast" label="Все метки были удалены" />
 </template>
 
 <script>
 import { mapMutations, mapGetters } from "vuex";
 
 export default {
-  name: "TodoSubheaderLabel",
+  name: "TheLabelSubheader",
   data() {
     return {
-      isOpenToast: false,
       isFormOpen: false,
     };
   },
   computed: {
     ...mapGetters({
       lablesLength: "todos/getAllLabelsLength",
+      labels: "todos/getAllLabels",
+      todos: "todos/getAllTodos",
+      isOpenLabelForm: "todos/getIsOpenLabelForm",
     }),
   },
+  mounted() {
+    this.openLabelForm();
+  },
   methods: {
-    ...mapMutations("todos", ["REMOVE_ALL_LABELS", "ADD_NEW_LABEL"]),
-    openToast() {
-      this.isOpenToast = true;
-      setTimeout(() => (this.isOpenToast = false), 2000);
-    },
+    ...mapMutations("todos", [
+      "REMOVE_CERTAIN_LABELS",
+      "ADD_NEW_LABEL",
+      "CLOSE_LABEL_FORM",
+    ]),
     openModal() {
       this.isFormOpen = true;
     },
     addNewLabel(value) {
+      const isSimilar = this.labels.some(({ title }) => title === value.title);
+      if (isSimilar) {
+        this.isFormOpen = false;
+        return;
+      }
+
       this.ADD_NEW_LABEL(value);
       this.isFormOpen = false;
+      this.$router.push("/");
     },
     removeAllLabels() {
-      this.REMOVE_ALL_LABELS();
-      this.openToast();
+      this.REMOVE_CERTAIN_LABELS();
+    },
+    openLabelForm() {
+      this.isOpenLabelForm && (this.isFormOpen = true);
+      this.CLOSE_LABEL_FORM();
     },
   },
 };

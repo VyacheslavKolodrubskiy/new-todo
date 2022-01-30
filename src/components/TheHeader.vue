@@ -1,16 +1,21 @@
 <template>
   <div class="p-4 flex justify-around items-center">
     <RouterLink
-      v-for="link in links"
+      v-for="link in links.slice(0, 3)"
       :key="link.path"
       :to="{ name: link.path }"
     >
       <BaseIcon :name="link.iconName" />
     </RouterLink>
+    <RouterLink :to="{ name: links[3].path }" @click="logout">
+      <BaseIcon :name="links[3].iconName" />
+    </RouterLink>
   </div>
 </template>
 
 <script>
+import { mapMutations } from "vuex";
+
 export default {
   name: "TheHeader",
   data() {
@@ -22,6 +27,12 @@ export default {
         { path: "Auth", iconName: "logout" },
       ],
     };
+  },
+  methods: {
+    ...mapMutations("auth", ["SET_USER_LOGOUT"]),
+    logout() {
+      this.SET_USER_LOGOUT();
+    },
   },
 };
 </script>

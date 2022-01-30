@@ -1,55 +1,61 @@
+// Form
+import AuthForm from "@/components/form/AuthForm.vue";
+import TaskForm from "@/components/form/TaskForm.vue";
+import LabelForm from "@/components/form/LabelForm.vue";
+import TitleEditForm from "@/components/form/TitleEditForm.vue";
+// UI
+import BaseButton from "@/components/UI/BaseButton.vue";
+import BaseIcon from "@/components/UI/BaseIcon.vue";
+import BaseModal from "@/components/UI/BaseModal.vue";
+import BaseButtonAdd from "@/components/UI/BaseButtonAdd.vue";
+import BaseButtonRemove from "@/components/UI/BaseButtonRemove.vue";
+import BaseInput from "@/components/UI/BaseInput.vue";
+import BaseSelect from "@/components/UI/BaseSelect.vue";
+import BaseTextArea from "@/components/UI/BaseTextArea.vue";
+import BaseToast from "@/components/UI/BaseToast.vue";
+// List-item
+import TaskListItem from "@/components/TaskListItem.vue";
+import LabelListItem from "@/components/LabelListItem.vue";
+import ArchiveListItem from "@/components/ArchiveListItem.vue";
+import TaskListItemSubmenu from "@/components/TaskListItemSubmenu.vue";
+// List
+import TheTaskList from "@/components/TheTaskList.vue";
+import TheLabelList from "@/components/TheLabelList.vue";
+import TheArchiveList from "@/components/TheArchiveList.vue";
+// Subheader
+import TheLabelSubheader from "@/components/TheLabelSubheader.vue";
+import TheTaskSubheader from "@/components/TheTaskSubheader.vue";
+import TheArchiveSubheader from "@/components/TheArchiveSubheader.vue";
+
 import TheHeader from "@/components/TheHeader.vue";
-import TodoList from "@/components/TodoList.vue";
-import TodoApp from "@/components/TodoApp.vue";
-import TodoListItem from "@/components/TodoListItem.vue";
-import BaseButton from "@/components/BaseButton.vue";
-import BaseIcon from "@/components/BaseIcon.vue";
-import BaseModal from "@/components/BaseModal.vue";
-import BaseButtonAdd from "@/components/BaseButtonAdd.vue";
-import ButtonWrapperWithIcon from "@/components/ButtonWrapperWithIcon.vue";
-import BaseButtonRemove from "@/components/BaseButtonRemove.vue";
-import TaskForm from "@/components/TaskForm.vue";
-import BaseInput from "@/components/BaseInput.vue";
-import BaseSelect from "@/components/BaseSelect.vue";
-import BaseTextArea from "@/components/BaseTextArea.vue";
-import TodoSubheaderMain from "@/components/TodoSubheaderMain.vue";
-import TodoSubheaderArchive from "@/components/TodoSubheaderArchive.vue";
-import BaseSubmenu from "@/components/BaseSubmenu.vue";
-import TodoSearch from "@/components/TodoSearch.vue";
-import BaseToast from "@/components/BaseToast.vue";
-import TodoListArchive from "@/components/TodoListArchive.vue";
-import TodoListItemArchive from "@/components/TodoListItemArchive.vue";
-import TodoSubheaderLabel from "@/components/TodoSubheaderLabel.vue";
-import LabelForm from "@/components/LabelForm.vue";
-import TodoListLabel from "@/components/TodoListLabel.vue";
-import TodoListItemLabel from "@/components/TodoListItemLabel.vue";
+import TheSearch from "@/components/TheSearch.vue";
 
 const components = [
-  TheHeader,
-  TodoApp,
+  TitleEditForm,
+  AuthForm,
   LabelForm,
-  TodoSubheaderLabel,
-  BaseButtonAdd,
-  TodoListLabel,
-  TodoListItemLabel,
-  TodoList,
-  BaseIcon,
-  BaseModal,
-  TodoListItem,
-  BaseButton,
   TaskForm,
+  TheHeader,
+  TheLabelSubheader,
+  BaseButtonAdd,
+  BaseToast,
+  BaseModal,
+  BaseIcon,
+  BaseButton,
   BaseInput,
   BaseSelect,
   BaseTextArea,
-  TodoSubheaderMain,
-  TodoSubheaderArchive,
   BaseButtonRemove,
-  ButtonWrapperWithIcon,
-  BaseSubmenu,
-  TodoSearch,
-  BaseToast,
-  TodoListArchive,
-  TodoListItemArchive,
+  TaskListItemSubmenu,
+  TheLabelList,
+  LabelListItem,
+  TheTaskList,
+  TaskListItem,
+  TheTaskSubheader,
+  TheArchiveSubheader,
+  TheSearch,
+  TheArchiveList,
+  ArchiveListItem,
 ];
 
 export default components;

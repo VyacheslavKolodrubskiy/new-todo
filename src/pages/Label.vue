@@ -1,9 +1,9 @@
 <template>
-  <TodoSubheaderLabel />
+  <TheLabelSubheader />
 </template>
 
 <script>
 export default {
-  name: "Archive",
+  name: "Label",
 };
 </script>

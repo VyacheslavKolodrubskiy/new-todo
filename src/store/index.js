@@ -3,13 +3,13 @@ import { createStore } from "vuex";
 import createPersistedState from "vuex-persistedstate";
 
 import todos from "@/store/modules/todos";
-import labels from "@/store/modules/labels";
+import auth from "@/store/modules/auth";
 
 export default createStore({
-  modules: { labels, todos },
+  modules: { auth, todos },
   plugins: [
     createPersistedState({
-      paths: ["labels", "todos"],
+      paths: ["auth", "todos"],
     }),
   ],
 });

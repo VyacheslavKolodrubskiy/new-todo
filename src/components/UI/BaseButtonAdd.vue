@@ -1,14 +1,16 @@
 <template>
   <BaseButton
     class="rounded-full w-12 h-12 flex justify-center items-center group"
-    variant="danger"
+    variant="primary"
+    icon-class="text-white group-hover:opacity-50"
+    icon-name="plus"
+    iconBefore
   >
-    <BaseIcon class="text-white group-hover:opacity-50" name="trash" />
   </BaseButton>
 </template>
 
 <script>
 export default {
-  name: "BaseButtonRemove",
+  name: "BaseButtonAdd",
 };
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <TodoSubheaderArchive />
+  <TheArchiveSubheader />
 </template>
 
 <script>

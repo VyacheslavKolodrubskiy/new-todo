@@ -8,20 +8,14 @@
     </div>
     <BaseButtonRemove @click="removeAllArchivedTasks" />
   </div>
-  <TodoListArchive />
-  <BaseToast v-if="isOpenToast" label="Все задачи из архива были удалены" />
+  <TheArchiveList />
 </template>
 
 <script>
 import { mapMutations, mapGetters } from "vuex";
 
 export default {
-  name: "TodoSubheaderArchive",
-  data() {
-    return {
-      isOpenToast: false,
-    };
-  },
+  name: "TheArchiveSubheader",
   computed: {
     ...mapGetters({
       archivedTodosLength: "todos/getAllArchiveTodosLength",
@@ -29,13 +23,8 @@ export default {
   },
   methods: {
     ...mapMutations("todos", ["REMOVE_ALL_ARCHIVED_TASKS"]),
-    openToast() {
-      this.isOpenToast = true;
-      setTimeout(() => (this.isOpenToast = false), 2000);
-    },
     removeAllArchivedTasks() {
       this.REMOVE_ALL_ARCHIVED_TASKS();
-      this.openToast();
     },
   },
 };

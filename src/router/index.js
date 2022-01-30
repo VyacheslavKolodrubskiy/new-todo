@@ -1,6 +1,9 @@
 import { createRouter, createWebHistory } from "vue-router";
 
+import store from "@/store";
+
 import Home from "@/pages/Home.vue";
+import Auth from "@/pages/Auth.vue";
 
 const routes = [
   {
@@ -11,7 +14,10 @@ const routes = [
   {
     path: "/auth",
     name: "Auth",
-    component: () => import(/* webpackChunkName: "auth" */ "@/pages/Auth.vue"),
+    meta: {
+      authPage: true,
+    },
+    component: Auth,
   },
   {
     path: "/archive",
@@ -30,6 +36,22 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
+});
+
+router.beforeEach((to) => {
+  document.title = store.getters["todos/getTitle"] || "Todo App";
+
+  if (store.getters["auth/getUserIsAuth"]) {
+    if (to.meta.authPage) {
+      return { name: "Home" };
+    } else {
+      return;
+    }
+  }
+
+  if (!to.meta.authPage) {
+    return { name: "Auth" };
+  }
 });
 
 export default router;

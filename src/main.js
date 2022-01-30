@@ -4,8 +4,8 @@ import router from "./router";
 import store from "./store";
 
 import App from "./App.vue";
-
 import components from "@/components/register-global-components";
+import toast from "@/utils/toast";
 
 import "@/assets/css/tailwind.css";
 
@@ -15,4 +15,6 @@ components.forEach((component) => {
   app.component(component.name, component);
 });
 
-app.use(store).use(router).mount("#app");
+app.config.globalProperties.$toast = toast;
+
+app.use(store).use(toast).use(router).mount("#app");

@@ -1,15 +1,16 @@
 <template>
   <div class="py-8">
+    <TaskForm @submit="editTask" v-model="isFormOpen" :id="id" />
     <div class="flex justify-between items-center px-2">
       <div class="flex items-center">
-        <ButtonWrapperWithIcon
+        <BaseButton
           class="self-end mr-2"
           icon-class="hover:text-black text-gray-500"
           icon-name="chevronDown"
           @click="toggleDescr"
           v-if="!isOpenDescr"
         />
-        <ButtonWrapperWithIcon
+        <BaseButton
           class="self-end mr-2"
           icon-class="hover:text-black text-gray-500"
           icon-name="chevronUp"
@@ -22,20 +23,26 @@
             'text-purple-400': todo.important,
             'font-bold': todo.important,
           }"
-          class="text-gray-500 text-xl"
+          class="text-gray-500 text-xl mr-10"
           >{{ todo.title }}</span
         >
+        <span
+          class="text-white text-xs rounded-2xl py-1 px-2"
+          :style="{ background: todo.label.color }"
+          >{{ todo.label.title }}</span
+        >
       </div>
-      <div class="relative">
-        <ButtonWrapperWithIcon
+      <div class="relative" ref="submenu">
+        <BaseButton
           icon-class="hover:text-black text-gray-500"
           icon-name="dots"
           @click="toggleSubmenu"
         />
-        <BaseSubmenu
+        <TaskListItemSubmenu
           @delete="onRemove(todo.id)"
           @complete="onChange(todo.id, 'TOGGLE_COMPLETE')"
           @important="onChange(todo.id, 'TOGGLE_IMPORTANT')"
+          @edit="onEdit(todo.id)"
           @archive="onArchive(todo.id)"
           v-if="isOpenSubmenu"
         />
@@ -59,7 +66,7 @@
 import { mapMutations, mapGetters } from "vuex";
 
 export default {
-  name: "TodoListItem",
+  name: "TaskListItem",
   emits: ["archiveTask", "removeTask", "archiveError"],
   props: {
     todo: {
@@ -71,6 +78,8 @@ export default {
     return {
       isOpenSubmenu: false,
       isOpenDescr: false,
+      isFormOpen: false,
+      id: null,
     };
   },
   computed: {
@@ -85,6 +94,7 @@ export default {
       "TOGGLE_COMPLETE",
       "TOGGLE_IMPORTANT",
       "ADD_TASK_TO_ARCHIVE",
+      "EDIT_TASK",
     ]),
     toggleSubmenu() {
       this.isOpenSubmenu = !this.isOpenSubmenu;
@@ -97,11 +107,11 @@ export default {
       this.isOpenSubmenu = false;
     },
     onArchive(id) {
-      const similar = this.archivedTodos.some(({ title }) =>
+      const isSimilar = this.archivedTodos.some(({ title }) =>
         this.todos.map((todo) => Object.keys(todo)).includes(title)
       );
 
-      if (!similar) {
+      if (!isSimilar) {
         this.ADD_TASK_TO_ARCHIVE(id);
         this.$emit("archiveTask");
         this.isOpenSubmenu = false;
@@ -114,13 +124,26 @@ export default {
       this.$emit("removeTask");
       this.isOpenSubmenu = false;
     },
-  },
-  mounted() {
-    window.addEventListener("click", (e) => {
-      if (!this.$el.contains(e.target)) {
+    onEdit(id) {
+      this.id = id;
+      this.isFormOpen = true;
+      this.isOpenSubmenu = false;
+    },
+    editTask(value) {
+      this.EDIT_TASK(value);
+      this.isFormOpen = false;
+    },
+    handleClick(e) {
+      if (!this.$refs.submenu.contains(e.target)) {
         this.isOpenSubmenu = false;
       }
-    });
+    },
+  },
+  mounted() {
+    window.addEventListener("click", this.handleClick);
+  },
+  beforeUnmount() {
+    window.removeEventListener("click", this.handleClick);
   },
 };
 </script>

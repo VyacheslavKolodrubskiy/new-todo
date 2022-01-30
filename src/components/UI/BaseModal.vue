@@ -5,7 +5,7 @@
   >
     <div class="bg-white max-w-sm mx-auto my-8 rounded-md">
       <div class="p-2 text-right">
-        <ButtonWrapperWithIcon
+        <BaseButton
           icon-class="hover:text-black text-gray-500"
           icon-name="close"
           @click="close"
