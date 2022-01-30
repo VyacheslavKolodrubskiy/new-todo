@@ -54,4 +54,8 @@ router.beforeEach((to) => {
   }
 });
 
+router.afterEach(() => {
+  document.title = store.getters["todos/getTitle"] || "Todo App";
+});
+
 export default router;
