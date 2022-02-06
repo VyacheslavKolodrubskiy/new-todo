@@ -33,12 +33,12 @@ import TheSearch from "@/components/TheSearch.vue";
 const components = [
   TitleEditForm,
   AuthForm,
+  BaseToast,
   LabelForm,
   TaskForm,
   TheHeader,
   TheLabelSubheader,
   BaseButtonAdd,
-  BaseToast,
   BaseModal,
   BaseIcon,
   BaseButton,

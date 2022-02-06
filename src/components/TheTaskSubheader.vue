@@ -125,6 +125,8 @@ export default {
 
       this.ADD_NEW_TASK(value);
       this.isTaskFormOpen = false;
+
+      this.$toast("Новая задача была добавлена");
     },
     onRemove() {
       this.$toast("Все задачи были удалены");

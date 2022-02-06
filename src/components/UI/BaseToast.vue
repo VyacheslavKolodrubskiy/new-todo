@@ -1,48 +1,20 @@
 <template>
-  <teleport to="body">
-    <div v-for="m in msg" :key="m" class="fixed top-40 right-96">
-      <div class="p-2 bg-white rounded-lg text-gray-500" @click="closeHandle">
-        {{ m }}
-      </div>
-    </div>
-  </teleport>
+  <div class="fixed top-20 left-1/2">
+    <ul class="space-y-8">
+      <transition-group name="fade">
+        <li v-for="toast in toasts" :key="toast">
+          <span class="bg-white p-3 rounded-lg text-gray-500"
+            >{{ toast }}
+          </span>
+        </li>
+      </transition-group>
+    </ul>
+  </div>
 </template>
 
 <script>
-import { ref, onMounted } from "vue";
 export default {
   name: "BaseToast",
-  props: {
-    msg: {
-      type: Array,
-      required: true,
-    },
-    timeout: {
-      type: Number,
-      default: 2000,
-      validate: function (val) {
-        return val >= 0;
-      },
-    },
-    clickToClose: { type: Boolean, default: true },
-    close: { type: Function, required: true },
-  },
-
-  setup(props) {
-    let innerTimeout = ref();
-
-    onMounted(() => {
-      if (props.timeout > 0)
-        innerTimeout.value = setTimeout(() => {
-          props.close();
-        }, props.timeout);
-    });
-
-    const closeHandle = () => {
-      if (props.clickToClose) props.close();
-    };
-
-    return { closeHandle };
-  },
+  inject: ["toasts"],
 };
 </script>

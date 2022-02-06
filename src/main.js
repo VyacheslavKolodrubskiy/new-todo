@@ -15,6 +15,4 @@ components.forEach((component) => {
   app.component(component.name, component);
 });
 
-app.config.globalProperties.$toast = toast;
-
 app.use(store).use(toast).use(router).mount("#app");

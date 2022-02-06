@@ -1,6 +1,7 @@
 <template>
   <div class="max-w-xl mx-auto bg-white rounded-b-md shadow-2xl">
     <TheHeader v-if="isAuth" />
+    <BaseToast />
     <router-view />
   </div>
 </template>
