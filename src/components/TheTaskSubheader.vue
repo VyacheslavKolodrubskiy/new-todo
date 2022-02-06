@@ -17,7 +17,7 @@
           <span class="text-white text-lg">{{ getDate.months }}, </span>
           <span class="text-white">{{ getDate.year }} год</span>
         </div>
-        <div class="text-white text-lg self-end">{{ countTodos }}</div>
+        <div class="text-white text-lg self-end">{{ numberOfTask }}</div>
       </div>
       <div class="mt-5 flex justify-between">
         <BaseButtonAdd
@@ -34,6 +34,7 @@
 </template>
 
 <script>
+import { setRightLastWord } from "@/utils/rightLastWord";
 import { mapMutations, mapGetters } from "vuex";
 
 export default {
@@ -92,8 +93,8 @@ export default {
         this.todosLength && "rounded-b-3xl",
       ];
     },
-    countTodos() {
-      const rightWord = this.setLastWord(
+    numberOfTask() {
+      const rightWord = setRightLastWord(
         this.todosLength,
         "Задача",
         "Задачи",
@@ -138,20 +139,6 @@ export default {
     setTitle() {
       document.title = this.titleApp || "Todo App";
       this.title = this.titleApp || "Todo App";
-    },
-    setLastWord(num, one, two, three) {
-      num = Math.abs(num) % 100;
-      const n1 = num % 10;
-      if (num > 10 && num < 20) {
-        return three;
-      }
-      if (n1 > 1 && n1 < 5) {
-        return two;
-      }
-      if (n1 == 1) {
-        return one;
-      }
-      return three;
     },
   },
 };

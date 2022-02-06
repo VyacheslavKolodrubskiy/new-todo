@@ -4,7 +4,7 @@
     class="bg-gradient-to-tr from-indigo-500 to-purple-500 p-4 shadow-2xl"
   >
     <div class="text-white text-lg text-right">
-      Количество созданных меток - {{ lablesLength }}
+      {{ numberOfLabels }}
     </div>
     <div class="mt-5 flex justify-between">
       <BaseButtonAdd
@@ -19,6 +19,7 @@
 </template>
 
 <script>
+import { setRightLastWord } from "@/utils/rightLastWord";
 import { mapMutations, mapGetters } from "vuex";
 
 export default {
@@ -35,6 +36,15 @@ export default {
       todos: "todos/getAllTodos",
       isOpenLabelForm: "todos/getIsOpenLabelForm",
     }),
+    numberOfLabels() {
+      const rightWord = setRightLastWord(
+        this.lablesLength,
+        "Созданная метка",
+        "Созданные метки",
+        "Созданных меток"
+      );
+      return `${this.lablesLength} - ${rightWord}`;
+    },
   },
   mounted() {
     this.openLabelForm();
@@ -57,7 +67,6 @@ export default {
 
       this.ADD_NEW_LABEL(value);
       this.isFormOpen = false;
-      this.$router.push("/");
     },
     removeAllLabels() {
       this.REMOVE_CERTAIN_LABELS();
