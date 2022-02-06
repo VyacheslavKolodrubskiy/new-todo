@@ -118,11 +118,14 @@ export default {
       } else {
         this.$emit("archiveError");
       }
+
+      this.$toast("Задача добавлена в архив");
     },
     onRemove(id) {
       this.REMOVE_TASK_BY_ID(id);
       this.$emit("removeTask");
       this.isOpenSubmenu = false;
+      this.$toast("Задача удалена");
     },
     onEdit(id) {
       this.id = id;

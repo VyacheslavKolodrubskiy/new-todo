@@ -93,14 +93,13 @@ export default {
       ];
     },
     countTodos() {
-      let lastWord = "";
-      if (this.todosLength === 1) {
-        lastWord = "a";
-      }
-      if (this.todosLength >= 2 && this.todosLength <= 4) {
-        lastWord = "и";
-      }
-      return `${this.todosLength} - Задач${lastWord}`;
+      const rightWord = this.setLastWord(
+        this.todosLength,
+        "Задача",
+        "Задачи",
+        "Задач"
+      );
+      return `${this.todosLength} - ${rightWord}`;
     },
   },
   methods: {
@@ -140,9 +139,19 @@ export default {
       document.title = this.titleApp || "Todo App";
       this.title = this.titleApp || "Todo App";
     },
-    setLastWord(word, n) {
-      console.log(word);
-      console.log(n);
+    setLastWord(num, one, two, three) {
+      num = Math.abs(num) % 100;
+      const n1 = num % 10;
+      if (num > 10 && num < 20) {
+        return three;
+      }
+      if (n1 > 1 && n1 < 5) {
+        return two;
+      }
+      if (n1 == 1) {
+        return one;
+      }
+      return three;
     },
   },
 };
